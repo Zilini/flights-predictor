@@ -1,6 +1,6 @@
 package com.flightspredictor.flights.domain.dto;
 
-public record PredictionResponse(
+public record ModelPredictionResponse(
         String prevision,
         Double probabilidad
 ) {}
