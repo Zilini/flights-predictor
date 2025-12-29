@@ -31,4 +31,12 @@ public record PredictionRequest(
         @DecimalMin(value = "50.0", message = "La distancia mínima permitida es de 50 km")
         @DecimalMax(value = "20000.0", message = "La distancia máxima permitida es de 20.000 km")
         Double distance
-) {}
+) {
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getDest(){
+        return dest;
+    }
+}

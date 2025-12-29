@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PredictionValidation {
     public void validarReglasDeNegocio(PredictionRequest dto){
-        if (dto.getOrigin()!= null && dto.getDest()!= null && dto.getOrigin.equalsIgnoreCase(dto.geDdest())){
+        if (dto.getOrigin()!= null && dto.getDest()!= null && dto.getOrigin().equalsIgnoreCase(dto.getDest())){
 
                 throw new BusinessException(
                         "INVALID_ROUTE",
