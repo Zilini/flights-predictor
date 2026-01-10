@@ -6,5 +6,6 @@ public final class BusinessErrorCodes {
         // Evita la instanciación
     }
 
-    public static final String INVALIDE_ROUTE = "INVALIDE_ROUTE";
+    public static final String INVALID_ROUTE = "INVALID_ROUTE";
+    public static final String INVALID_IATA = "INVALID_IATA_CODE";
 }

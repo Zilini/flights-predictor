@@ -22,6 +22,18 @@ public class AirportService {
         this.repository = repository;
         this.validations = validations;
     }
+      /**
+     * Verifica si existe un aeropuerto registrado con el código IATA.
+     *
+     * La búsqueda se realiza ignorando mayúsculas y minúsculas.
+     *
+     * @param iata código IATA del aeropuerto
+     * @return true si existe, false en caso contrario
+     */
+    public boolean existsAirportIata(String iata) {
+        return repository.existsByAirportIataIgnoreCase(iata);
+    }
+
 
     public Airport getAirport (String iata) {
 

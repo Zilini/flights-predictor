@@ -1,14 +1,15 @@
 package com.flightspredictor.flights.infra;
 
-import com.flightspredictor.flights.domain.error.BusinessException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.flightspredictor.flights.domain.error.BusinessException;
 
 /**
  * Maneja errores de validación producidos por Bean Validation (@Valid).
@@ -56,6 +57,30 @@ public class GlobalExceptionHandler {
 
         //Retorna un HTTP 400
         return new ResponseEntity<>(respuesta, HttpStatus.BAD_REQUEST);
+    }
+    
+    /**
+     * Maneja excepciones no controladas o inesperadas.
+     * Su objetivo es:
+     * - Evitar que el stacktrace llegue al cliente
+     * - Retornar una respuesta HTTP controlada y segura
+     * - Notificar al cliente que ocurrió un error interno
+     *
+     * Retorna:
+     * - HTTP 500 (Internal Server Error)
+     * - Un mensaje genérico sin exponer detalles técnico
+     */
+    @ExceptionHandler(Exception.class)
+    // Construccion de la respuesta de error.
+    public ResponseEntity<Object> handlerUnexpected(Exception ex){
+        return new ResponseEntity<>(
+                Map.of(
+                        "Estado" , 500,
+                        "Error", "INTERNAL ERROR",
+                        "Mensaje", "Error inesperado"
+                ),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 
 }
