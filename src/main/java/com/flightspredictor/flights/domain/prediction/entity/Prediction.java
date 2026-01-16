@@ -44,4 +44,7 @@ public class Prediction {
         this.probability = data.probability();
         this.status = data.status();
     }
+    public void setResultadoReal(String resultadoReal) {
+    this.resultadoReal = resultadoReal;
+}
 }
