@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class AirportsExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ApiError> handleValidation(
