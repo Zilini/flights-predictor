@@ -1,0 +1,1 @@
+ALTER TABLE response ADD COLUMN resultado_real VARCHAR(50);
