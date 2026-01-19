@@ -1,11 +1,11 @@
-package com.flightspredictor.flights.domain.validation;
+package com.flightspredictor.flights.domain.prediction.validation;
 
 import org.springframework.stereotype.Component;
 
-import com.flightspredictor.flights.domain.requests.dto.PredictionRequest;
+import com.flightspredictor.flights.domain.prediction.dto.PredictionRequest;
 import com.flightspredictor.flights.domain.error.BusinessErrorCodes;
 import com.flightspredictor.flights.domain.error.BusinessException;
-import com.flightspredictor.flights.domain.service.AirportLookupService;
+import com.flightspredictor.flights.domain.prediction.service.AirportLookupService;
 
 @Component
 public class PredictionValidation {
