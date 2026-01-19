@@ -33,12 +33,13 @@ public class Prediction {
 
     @OneToOne
     @JoinColumn(name = "request_id", nullable = false, unique = true)
-    private Request requests;
+    private Request request;
 
-    public Prediction(ModelPredictionResponse data) {
+    public Prediction(ModelPredictionResponse data, Request request) {
         this.id = null;
         this.prevision = data.prevision();
         this.probability = data.probability();
         this.status = data.status();
+        this.request = request;
     }
 }
