@@ -6,6 +6,7 @@ import com.flightspredictor.flights.domain.service.PredictionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,5 +22,9 @@ public class PredictionController {
     @PostMapping()
     public ResponseEntity<ModelPredictionResponse> predict(@RequestBody @Valid PredictionRequest dto) {
         return ResponseEntity.ok(predictionService.predecirVuelo(dto));
+    }
+    @GetMapping("/stats")
+    public ResponseEntity<String> getStats() {
+        return ResponseEntity.ok(predictionService.obtenerEstadisticas());
     }
 }
