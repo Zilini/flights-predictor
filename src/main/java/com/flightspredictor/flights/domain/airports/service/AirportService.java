@@ -5,22 +5,19 @@ import com.flightspredictor.flights.domain.airports.dto.AirportData;
 import com.flightspredictor.flights.domain.airports.entity.Airport;
 import com.flightspredictor.flights.domain.airports.repository.AirportRepository;
 import com.flightspredictor.flights.domain.airports.validations.IAirportsValidations;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AirportService {
 
     private final AirportApiClient apiClient;
     private final AirportRepository repository;
     private final List<IAirportsValidations> validations;
 
-    public AirportService (AirportApiClient apiClient, AirportRepository repository, List<IAirportsValidations> validations) {
-        this.apiClient = apiClient;
-        this.repository = repository;
-        this.validations = validations;
-    }
       /**
      * Verifica si existe un aeropuerto registrado con el código IATA.
      *
