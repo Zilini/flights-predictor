@@ -38,7 +38,7 @@ public class Airport {
     @Column(name = "longitude",nullable = false)
     private Float longitude;
 
-    @Column(name = "longitude", nullable = false)
+    @Column(name = "latitude", nullable = false)
     private Float latitude;
 
     // Altura en metros sobre el nivel del mar (msnm)
