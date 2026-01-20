@@ -36,10 +36,10 @@ public class Airport {
     private String cityName;
 
     @Column(name = "longitude",nullable = false)
-    private Float longitude;
+    private Double longitude;
 
     @Column(name = "latitude", nullable = false)
-    private Float latitude;
+    private Double latitude;
 
     // Altura en metros sobre el nivel del mar (msnm)
     @Column(name = "elevation")

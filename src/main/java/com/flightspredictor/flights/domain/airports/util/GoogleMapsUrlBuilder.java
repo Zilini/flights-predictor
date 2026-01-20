@@ -10,7 +10,7 @@ public class GoogleMapsUrlBuilder {
     private GoogleMapsUrlBuilder(){
     }
 
-    public static String buildGoogleMapURl(Float latitude, Float longitude) {
+    public static String buildGoogleMapURl(Double latitude, Double longitude) {
         return URL_BASE_MAPS + latitude + "," + longitude;
     }
 }
