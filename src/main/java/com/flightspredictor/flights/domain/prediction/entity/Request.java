@@ -1,13 +1,13 @@
 package com.flightspredictor.flights.domain.prediction.entity;
 
-import com.flightspredictor.flights.domain.prediction.dto.ModelPredictionRequest;
+import com.flightspredictor.flights.domain.prediction.dto.PredictionRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Table(name = "request")
 @Entity(name = "Request")
@@ -24,7 +24,7 @@ public class Request {
     private Long id;
 
     @Column(name = "fl_date", nullable = false)
-    private LocalDate flightDateTime;
+    private OffsetDateTime flightDateTime;
 
     @Column(name = "op_unique_carrier", nullable = false)
     private String opUniqueCarrier;
@@ -38,16 +38,20 @@ public class Request {
     @Column(name = "distance", nullable = false)
     private Double distance;
 
-    @OneToOne(mappedBy = "request", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Prediction prediction;
 
-    public Request(ModelPredictionRequest data) {
+    public Request(PredictionRequest data) {
         this.id = null;
-        this.opUniqueCarrier = data.op_unique_carrier();
+        this.flightDateTime = data.flightDateTime();
+        this.opUniqueCarrier = data.opUniqueCarrier();
         this.origin = data.origin();
         this.dest = data.dest();
         this.distance = data.distance();
-        this.prediction = new Prediction();
+    }
+
+    public void setPrediction(Prediction prediction){
+        this.prediction = prediction;
     }
 
 }

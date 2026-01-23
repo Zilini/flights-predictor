@@ -4,18 +4,17 @@ import com.flightspredictor.flights.domain.prediction.client.PredictionApiClient
 import com.flightspredictor.flights.domain.prediction.dto.ModelPredictionRequest;
 import com.flightspredictor.flights.domain.prediction.dto.ModelPredictionResponse;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.Optional;
 
 import com.flightspredictor.flights.domain.prediction.dto.PredictionRequest;
+import com.flightspredictor.flights.domain.prediction.dto.PredictionResponse;
 import com.flightspredictor.flights.domain.prediction.entity.Prediction;
 import com.flightspredictor.flights.domain.prediction.entity.Request;
+import com.flightspredictor.flights.domain.prediction.mapper.PredictionMapper;
+import com.flightspredictor.flights.domain.prediction.mapper.RequestMapper;
 import com.flightspredictor.flights.domain.prediction.repository.PredictionRepository;
 import com.flightspredictor.flights.domain.prediction.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 
@@ -25,6 +24,8 @@ public class PredictionService {
 
     private final AirportLookupService airportLookupService;
     private final PredictionApiClient predictionClient;
+    private final PredictionMapper predictionMapper;
+    private final RequestMapper requestMapper;
     private final RequestRepository requestRepo;
     private final PredictionRepository predictionRepo;
 
@@ -55,14 +56,16 @@ public class PredictionService {
         }
 
         // Mapea la request para entregarla al modelo
-        ModelPredictionRequest requestModel = mapToModelRequest(request);
+        ModelPredictionRequest requestModel = requestMapper.mapToModelRequest(request);
 
         //Si no exite, hace la llamada al modelo
-        ModelPredictionResponse response = predictionClient.predict(requestModel);
+        PredictionResponse response = predictionClient.predict(requestModel);
+
+        ModelPredictionResponse domainResponse = predictionMapper.mapToModelResponse(response);
 
         // Construye las entidades para ser almacenadas en la base de datos
         Request requestEntity = new Request(request);
-        Prediction predictionEntity = new Prediction(response, requestEntity);
+        Prediction predictionEntity = new Prediction(domainResponse, requestEntity);
 
         // Hace la vinculación de la request con la predicción
         requestEntity.setPrediction(predictionEntity);
@@ -70,27 +73,7 @@ public class PredictionService {
         // Guarda la request y a la vez la prediction asociada a ella
         requestRepo.save(requestEntity);
 
-        return response;
-    }
-
-    /**
-     * Metodo para mapear los datos que ingresa el usuario hacia el dto que recibe el modelo
-     */
-    private ModelPredictionRequest mapToModelRequest(PredictionRequest dto) {
-        OffsetDateTime flightDateTime = dto.flightDateTime();
-
-        int crsDepTime = (flightDateTime.getHour() * 100) + flightDateTime.getMinute();
-
-        return new ModelPredictionRequest(
-                flightDateTime.toLocalDate().getDayOfMonth(),
-                flightDateTime.getDayOfWeek().getValue(),
-                flightDateTime,
-                dto.opUniqueCarrier(),
-                dto.origin(),
-                dto.dest(),
-                dto.distance(),
-                crsDepTime
-        );
+        return domainResponse;
     }
 }
 

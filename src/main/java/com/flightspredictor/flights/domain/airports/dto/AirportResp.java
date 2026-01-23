@@ -8,8 +8,8 @@ public record AirportResp(
         String country,
         String cityName,
 
-        Float latitude,
-        Float longitude,
+        Double latitude,
+        Double longitude,
 
         Double elevation,
         String timeZone,
