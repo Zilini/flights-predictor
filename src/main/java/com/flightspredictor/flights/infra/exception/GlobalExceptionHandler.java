@@ -1,4 +1,4 @@
-package com.flightspredictor.flights.infra;
+package com.flightspredictor.flights.infra.exception;
 
 import java.util.HashMap;
 import java.util.Map;

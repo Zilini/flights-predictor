@@ -1,4 +1,4 @@
-package com.flightspredictor.flights.domain.airports.exceptions;
+package com.flightspredictor.flights.infra.exception;
 
 public class AirportNotFoundException extends RuntimeException {
 
