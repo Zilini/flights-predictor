@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "response")
+@Table(name = "prediction")
 @Entity(name = "Prediction")
 
 @Getter
@@ -24,11 +24,14 @@ public class Prediction {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "prevision")
     private Prevision prevision;
 
+    @Column(name = "probability")
     private Double probability;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status status;
 
     @OneToOne
