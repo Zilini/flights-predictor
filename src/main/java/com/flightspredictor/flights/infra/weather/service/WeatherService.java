@@ -9,7 +9,8 @@ import com.flightspredictor.flights.infra.weather.exception.AirportNotFoundExcep
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
 import java.util.Locale;
 
 @Service
@@ -53,7 +54,7 @@ public class WeatherService {
     }
     
     private WeatherData mapToWeatherData(Airport airport, WeatherResponse.CurrentWeather currentWeather) {
-        LocalDateTime measurementTime = LocalDateTime.now();
+        ZonedDateTime localtime = ZonedDateTime.now();
 
         WeatherResponse.CurrentWeather.Condition condition = currentWeather.condition();
 
@@ -64,7 +65,7 @@ public class WeatherService {
                 airport.getCountryName(),
                 airport.getLatitude(),
                 airport.getLongitude(),
-                measurementTime,
+                currentWeather.lastUpdated(),
                 currentWeather.temperature(),
                 currentWeather.humidity().longValue(),
                 currentWeather.windSpeed(),

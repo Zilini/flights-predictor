@@ -30,7 +30,10 @@ public record WeatherResponse(
             Double pressure,
 
             @JsonProperty("condition")
-            Condition condition
+            Condition condition,
+
+            @JsonProperty("last_updated")
+            String lastUpdated
     ) {
 
         /**
