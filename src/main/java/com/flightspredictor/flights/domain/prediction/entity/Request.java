@@ -41,13 +41,13 @@ public class Request {
     @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Prediction prediction;
 
-    public Request(PredictionRequest data) {
+    public Request(PredictionRequest data, Double calculatedDistance) {
         this.id = null;
         this.flightDateTime = data.flightDateTime();
         this.opUniqueCarrier = data.opUniqueCarrier();
         this.origin = data.origin();
         this.dest = data.dest();
-        this.distance = data.distance();
+        this.distance = calculatedDistance;
     }
 
     public void setPrediction(Prediction prediction){

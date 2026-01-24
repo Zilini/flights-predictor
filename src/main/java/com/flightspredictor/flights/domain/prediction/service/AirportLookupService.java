@@ -1,10 +1,13 @@
 package com.flightspredictor.flights.domain.prediction.service;
 
+import com.flightspredictor.flights.domain.airports.entity.Airport;
 import com.flightspredictor.flights.domain.airports.repository.AirportRepository;
 import com.flightspredictor.flights.domain.airports.service.AirportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * Servicio de consulta para aeropuertos.
@@ -41,5 +44,9 @@ public class  AirportLookupService {
 
         airportRepository.findByAirportIata(dest)
                 .orElseGet(() -> airportRepository.save(airportService.getAirport(dest)));
+    }
+
+    public Optional<Airport> getAirport(String iata) {
+        return airportRepository.findByAirportIata(iata);
     }
 }

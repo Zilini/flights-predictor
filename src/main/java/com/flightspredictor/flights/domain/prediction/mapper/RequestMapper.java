@@ -11,7 +11,7 @@ public class RequestMapper {
     /**
      * Metodo para mapear los datos que ingresa el usuario hacia el dto que recibe el modelo
      */
-    public ModelPredictionRequest mapToModelRequest(PredictionRequest dto) {
+    public ModelPredictionRequest mapToModelRequest(PredictionRequest dto, double distance) {
         OffsetDateTime flightDateTime = dto.flightDateTime();
 
         int crsDepTime = (flightDateTime.getHour() * 100) + flightDateTime.getMinute();
@@ -21,7 +21,7 @@ public class RequestMapper {
                 dto.opUniqueCarrier(),
                 dto.origin(),
                 dto.dest(),
-                dto.distance(),
+                distance,
                 crsDepTime,
                 0,
                 0.0,

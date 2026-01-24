@@ -12,8 +12,8 @@ import com.flightspredictor.flights.domain.prediction.entity.Prediction;
 import com.flightspredictor.flights.domain.prediction.entity.Request;
 import com.flightspredictor.flights.domain.prediction.mapper.PredictionMapper;
 import com.flightspredictor.flights.domain.prediction.mapper.RequestMapper;
-import com.flightspredictor.flights.domain.prediction.repository.PredictionRepository;
 import com.flightspredictor.flights.domain.prediction.repository.RequestRepository;
+import com.flightspredictor.flights.domain.prediction.util.GeoUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +27,26 @@ public class PredictionService {
     private final PredictionMapper predictionMapper;
     private final RequestMapper requestMapper;
     private final RequestRepository requestRepo;
-    private final PredictionRepository predictionRepo;
 
     public ModelPredictionResponse predict(PredictionRequest request){
 
-        //Busca los aeropueros desde la request para guardarlos en base de datos si no existen
+        // Busca los aeropueros desde la request para guardarlos en base de datos si no existen
         airportLookupService.getAirportExist(
                 request.origin(),
                 request.dest()
         );
 
-        //Busca si no existe una request en la base de datos
+        // Trae los aeropuertos y sus coordenadas
+        var originAirport = airportLookupService.getAirport(request.origin());
+        var destAirport = airportLookupService.getAirport(request.dest());
+
+        // Calcula distancia automáticamente la distancia para inyectarla en la request
+        double calculatedDistance = GeoUtils.calculateDistance(
+                originAirport.get().getLongitude(), originAirport.get().getLongitude(),
+                destAirport.get().getLatitude(), destAirport.get().getLatitude()
+        );
+
+        // Busca si no existe una request en la base de datos
         Optional<Request> existingRequest =
                 requestRepo.
                         findByFlightDateTimeAndOpUniqueCarrierAndOriginAndDestAndDistance(
@@ -45,7 +54,7 @@ public class PredictionService {
                                 request.opUniqueCarrier(),
                                 request.origin(),
                                 request.dest(),
-                                request.distance()
+                                calculatedDistance
             );
 
         // Si exite, devuelve la predicción asociada a request
@@ -56,15 +65,16 @@ public class PredictionService {
         }
 
         // Mapea la request para entregarla al modelo
-        ModelPredictionRequest requestModel = requestMapper.mapToModelRequest(request);
+        ModelPredictionRequest requestModel = requestMapper.mapToModelRequest(request, calculatedDistance);
 
         //Si no exite, hace la llamada al modelo
         PredictionResponse response = predictionClient.predict(requestModel);
 
+        // Traduce la respuesta del modelo con los enums (prevision, status)
         ModelPredictionResponse domainResponse = predictionMapper.mapToModelResponse(response);
 
         // Construye las entidades para ser almacenadas en la base de datos
-        Request requestEntity = new Request(request);
+        Request requestEntity = new Request(request, calculatedDistance);
         Prediction predictionEntity = new Prediction(domainResponse, requestEntity);
 
         // Hace la vinculación de la request con la predicción

@@ -3,7 +3,6 @@ package com.flightspredictor.flights.domain.prediction.repository;
 import com.flightspredictor.flights.domain.prediction.entity.Request;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
