@@ -1,7 +1,6 @@
 package com.flightspredictor.flights.infra.weather.dto;
 
 import com.flightspredictor.flights.infra.weather.dto.external.WeatherResponse;
-import java.time.LocalDateTime;
 
 /**
  * DTO interno que representa los datos meteorológicos procesados para uso en la aplicación
@@ -14,7 +13,7 @@ public record WeatherData(
         String country,                     // País donde se encuentra la ciudad
         Double latitude,                    // Coordenada de latitud
         Double longitude,                   // Coordenada de longitud
-        LocalDateTime measurementTime,      // Momento de la medición convertido a LocalDateTime
+        String lastUpdated,
         Double temperatureCelsius,          // Temperatura en grados Celsius
         Long humidityPercentage,            // Humedad relativa en porcentaje (0-100)
         Double windSpeedKmh,                // Velocidad del viento en kilómetros por hora
