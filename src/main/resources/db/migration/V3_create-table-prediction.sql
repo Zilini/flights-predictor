@@ -6,7 +6,7 @@ create table prediction (
     probability double not null,
     status varchar(50) not null,
 
-    primary key(id)
+    primary key(id),
 
     constraint fk_prediction_request
             foreign key (request_id)
