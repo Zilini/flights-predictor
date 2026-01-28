@@ -2,7 +2,7 @@ package com.flightspredictor.flights.domain.airports.util;
 
 public class AirportUrlBuilder {
 
-    //URL base para consumo de api de aerodatabox
+    //URL base para consumo de api de aerodatabox para aeropuertos
     private static final String BASE_URL =
             "https://prod.api.market/api/v1/aedbx/aerodatabox/airports/";
 

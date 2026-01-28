@@ -45,7 +45,7 @@ public class AirportService {
                     // Se aplican las validaciones para los campos necesarios para el modelo
                     validations.forEach(v -> v.validate(data));
 
-                    // Guarda en la base de datos y devuelve la información.
+                    // Guarda en la base de datos para futuras consultas y devuelve la información.
                     var airport = new Airport(data);
                     return repository.save(airport);
 
