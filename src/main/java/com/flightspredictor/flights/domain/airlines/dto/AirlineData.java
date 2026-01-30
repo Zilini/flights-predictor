@@ -1,6 +1,6 @@
-package com.flightspredictor.flights.domain.airline.dto;
+package com.flightspredictor.flights.domain.airlines.dto;
 
-import com.flightspredictor.flights.domain.airline.domain.AirlineResponse;
+import com.flightspredictor.flights.domain.airlines.domain.AirlineResponse;
 
 public record AirlineData(
         String opUniqueCarrier,

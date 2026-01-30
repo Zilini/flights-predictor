@@ -1,8 +1,8 @@
-package com.flightspredictor.flights.domain.airline.domain;
+package com.flightspredictor.flights.domain.airlines.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.flightspredictor.flights.domain.airline.util.AirlineItems;
+import com.flightspredictor.flights.domain.airlines.util.AirlineItems;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

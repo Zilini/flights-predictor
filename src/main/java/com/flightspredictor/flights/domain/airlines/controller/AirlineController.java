@@ -1,8 +1,8 @@
-package com.flightspredictor.flights.domain.airline.controller;
+package com.flightspredictor.flights.domain.airlines.controller;
 
-import com.flightspredictor.flights.domain.airline.dto.AirlineResp;
-import com.flightspredictor.flights.domain.airline.repository.AirlineRepository;
-import com.flightspredictor.flights.domain.airline.service.AirlineService;
+import com.flightspredictor.flights.domain.airlines.dto.AirlineResp;
+import com.flightspredictor.flights.domain.airlines.repository.AirlineRepository;
+import com.flightspredictor.flights.domain.airlines.service.AirlineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

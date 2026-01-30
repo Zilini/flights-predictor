@@ -1,7 +1,7 @@
-package com.flightspredictor.flights.domain.airline.client;
+package com.flightspredictor.flights.domain.airlines.client;
 
-import com.flightspredictor.flights.domain.airline.domain.AirlineResponse;
-import com.flightspredictor.flights.domain.airline.util.AirlineUrlBuilder;
+import com.flightspredictor.flights.domain.airlines.domain.AirlineResponse;
+import com.flightspredictor.flights.domain.airlines.util.AirlineUrlBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

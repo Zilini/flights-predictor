@@ -1,10 +1,10 @@
-package com.flightspredictor.flights.domain.airline.service;
+package com.flightspredictor.flights.domain.airlines.service;
 
-import com.flightspredictor.flights.domain.airline.client.AirlineApiClient;
-import com.flightspredictor.flights.domain.airline.dto.AirlineData;
-import com.flightspredictor.flights.domain.airline.entity.Airline;
-import com.flightspredictor.flights.domain.airline.repository.AirlineRepository;
-import com.flightspredictor.flights.domain.airline.validations.IAirlineValidations;
+import com.flightspredictor.flights.domain.airlines.client.AirlineApiClient;
+import com.flightspredictor.flights.domain.airlines.dto.AirlineData;
+import com.flightspredictor.flights.domain.airlines.entity.Airline;
+import com.flightspredictor.flights.domain.airlines.repository.AirlineRepository;
+import com.flightspredictor.flights.domain.airlines.validations.IAirlineValidations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

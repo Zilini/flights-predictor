@@ -1,4 +1,4 @@
-package com.flightspredictor.flights.domain.airline.util;
+package com.flightspredictor.flights.domain.airlines.util;
 
 public class AirlineUrlBuilder {
 

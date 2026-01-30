@@ -1,7 +1,6 @@
-package com.flightspredictor.flights.domain.airline.entity;
+package com.flightspredictor.flights.domain.airlines.entity;
 
-import com.flightspredictor.flights.domain.airline.domain.AirlineResponse;
-import com.flightspredictor.flights.domain.airline.dto.AirlineData;
+import com.flightspredictor.flights.domain.airlines.dto.AirlineData;
 import jakarta.persistence.*;
 import lombok.*;
 

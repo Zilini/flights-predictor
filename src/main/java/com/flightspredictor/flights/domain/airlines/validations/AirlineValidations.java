@@ -1,6 +1,6 @@
-package com.flightspredictor.flights.domain.airline.validations;
+package com.flightspredictor.flights.domain.airlines.validations;
 
-import com.flightspredictor.flights.domain.airline.dto.AirlineData;
+import com.flightspredictor.flights.domain.airlines.dto.AirlineData;
 import jakarta.validation.ValidationException;
 import org.springframework.stereotype.Component;
 

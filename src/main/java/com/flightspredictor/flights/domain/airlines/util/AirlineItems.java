@@ -1,4 +1,4 @@
-package com.flightspredictor.flights.domain.airline.util;
+package com.flightspredictor.flights.domain.airlines.util;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,6 +1,6 @@
-package com.flightspredictor.flights.domain.airline.repository;
+package com.flightspredictor.flights.domain.airlines.repository;
 
-import com.flightspredictor.flights.domain.airline.entity.Airline;
+import com.flightspredictor.flights.domain.airlines.entity.Airline;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
