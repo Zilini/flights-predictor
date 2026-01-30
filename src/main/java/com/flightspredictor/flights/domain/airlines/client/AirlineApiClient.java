@@ -1,33 +1,33 @@
-package com.flightspredictor.flights.domain.airports.client;
+package com.flightspredictor.flights.domain.airlines.client;
 
-import com.flightspredictor.flights.domain.airports.domain.AirportResponse;
-import com.flightspredictor.flights.domain.airports.util.AirportUrlBuilder;
+import com.flightspredictor.flights.domain.airlines.domain.AirlineResponse;
+import com.flightspredictor.flights.domain.airlines.util.AirlineUrlBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
 
 
 @Component
 @RequiredArgsConstructor
-public class AirportApiClient {
+public class AirlineApiClient {
 
     private final RestTemplate restTemplate;
 
     @Value("${api.market.key:}")
     private String apiKey;
 
-    public AirportResponse airportResponse (String iata) {
+    public AirlineResponse airlineResponse (String opUniqueCarrier) {
 
-        String url = AirportUrlBuilder.buildAirportUrl(iata);
+        String url = AirlineUrlBuilder.buildAirlineUrl(opUniqueCarrier);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-api-market-key", apiKey);
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        return restTemplate.exchange(url, HttpMethod.GET, entity, AirportResponse.class).getBody();
+        return restTemplate.exchange(url, HttpMethod.GET, entity, AirlineResponse.class).getBody();
     }
 }

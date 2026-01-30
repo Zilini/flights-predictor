@@ -25,7 +25,7 @@ public class AirportValidation {
     private void validateIata(AirportData data){
         if (data.airportIata() == null || data.airportIata().isBlank()){
 
-            throw new ValidationException("Codigo IATA requerido");
+            throw new ValidationException("Código IATA requerido.");
 
         }
     }
@@ -34,7 +34,7 @@ public class AirportValidation {
         if (data.airportIata().length() != 3){
 
             throw new ValidationException(
-                    "Codigo IATA invalido, el codigo debe de tener 3 letras"
+                    "Código IATA inválido, el código debe de tener 3 letras."
             );
 
         }
@@ -44,7 +44,7 @@ public class AirportValidation {
         if (data.longitude() == null || data.latitude() == null){
 
             throw new ValidationException(
-                    "Longitud y Latitud son campos obligatorios"
+                    "Longitud y Latitud son campos obligatorios."
             );
 
         }
@@ -53,7 +53,7 @@ public class AirportValidation {
     private void validateTimezone(AirportData data){
         if (data.timeZone() == null || data.timeZone().isBlank()){
 
-            throw new ValidationException("Zona horaria requerida. Ej: America/Lima");
+            throw new ValidationException("Zona horaria requerida. Ej: America/Lima.");
 
         }
     }

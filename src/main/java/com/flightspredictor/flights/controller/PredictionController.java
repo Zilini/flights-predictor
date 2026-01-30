@@ -1,30 +1,28 @@
 package com.flightspredictor.flights.controller;
 
-import com.flightspredictor.flights.domain.requests.dto.PredictionRequest;
-import com.flightspredictor.flights.domain.requests.dto.ModelPredictionResponse;
-import com.flightspredictor.flights.domain.service.PredictionService;
+import com.flightspredictor.flights.domain.prediction.dto.PredictionRequest;
+import com.flightspredictor.flights.domain.prediction.dto.ModelPredictionResponse;
+import com.flightspredictor.flights.domain.prediction.service.PredictionService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/prediction")
+@RequestMapping("/predict")
+@RequiredArgsConstructor
 public class PredictionController {
-    
-    @Autowired
-    PredictionService predictionService;
-    
-    @PostMapping()
-    public ResponseEntity<ModelPredictionResponse> predict(@RequestBody @Valid PredictionRequest dto) {
-        return ResponseEntity.ok(predictionService.predecirVuelo(dto));
+
+    private final PredictionService predictionService;
+
+    @PostMapping
+    public ResponseEntity<ModelPredictionResponse> predict(@RequestBody @Valid PredictionRequest request) {
+
+        return ResponseEntity.ok(predictionService.predict(request));
     }
-    @GetMapping("/stats")
+
+    /*@GetMapping("/stats")
     public ResponseEntity<String> getStats() {
         return ResponseEntity.ok(predictionService.obtenerEstadisticas());
-    }
+    }*/
 }

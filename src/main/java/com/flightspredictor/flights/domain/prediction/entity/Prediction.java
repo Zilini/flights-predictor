@@ -1,9 +1,8 @@
 package com.flightspredictor.flights.domain.prediction.entity;
 
-import com.flightspredictor.flights.domain.prediction.enums.Prevision;
-import com.flightspredictor.flights.domain.prediction.enums.Status;
-import com.flightspredictor.flights.domain.requests.dto.ModelPredictionResponse;
-
+import com.flightspredictor.flights.domain.prediction.ENUM.Prevision;
+import com.flightspredictor.flights.domain.prediction.ENUM.Status;
+import com.flightspredictor.flights.domain.prediction.dto.ModelPredictionResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,34 +24,25 @@ public class Prediction {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "prevision")
     private Prevision prevision;
 
+    @Column(name = "probability")
     private Double probability;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status status;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "request_id")
+    @OneToOne
+    @JoinColumn(name = "request_id", nullable = false, unique = true)
     private Request request;
 
-    @Column(name = "resultado_real")
-    private String resultadoReal;
-
-    public Prediction(ModelPredictionResponse data) {
-        if ("Retrasado".equalsIgnoreCase(data.prevision())) {
-            this.prevision = Prevision.DELAYED;
-        } else {
-            this.prevision = Prevision.ON_TIME;
-        }
-        this.status = Status.PROCESSED;
+    public Prediction(ModelPredictionResponse data, Request request) {
+        this.id = null;
+        this.prevision = data.prevision();
+        this.probability = data.probability();
+        this.status = data.status();
+        this.request = request;
     }
-
-    public void setResultadoReal(String resultadoReal) {
-    this.resultadoReal = resultadoReal;
 }
-    public void setRequest(Request request) {
-    this.request = request;
-}
-}
-
