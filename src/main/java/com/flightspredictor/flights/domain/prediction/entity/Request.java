@@ -38,7 +38,7 @@ public class Request {
     @Column(name = "distance", nullable = false)
     private Double distance;
 
-    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "request", fetch = FetchType.LAZY)
     private Prediction prediction;
 
     public Request(PredictionRequest data, Double calculatedDistance) {

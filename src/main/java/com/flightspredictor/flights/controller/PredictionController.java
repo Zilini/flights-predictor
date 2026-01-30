@@ -20,4 +20,9 @@ public class PredictionController {
 
         return ResponseEntity.ok(predictionService.predict(request));
     }
+
+    /*@GetMapping("/stats")
+    public ResponseEntity<String> getStats() {
+        return ResponseEntity.ok(predictionService.obtenerEstadisticas());
+    }*/
 }

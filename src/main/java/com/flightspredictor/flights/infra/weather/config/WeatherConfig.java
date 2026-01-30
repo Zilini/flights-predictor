@@ -1,47 +1,38 @@
 package com.flightspredictor.flights.infra.weather.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
+import io.netty.channel.ChannelOption;
+import java.time.Duration;
+import java.util.Locale;
 
-/**
- * Configuración para la integración con la API meteorológica de Open-Meteo
- * Centraliza las URLs, timeouts y parámetros de configuración
- */
 @Configuration
 public class WeatherConfig {
+    @Value("${api.market.key:}")
+
+    public static final String WEATHER_BASE_URL = "http://api.weatherapi.com/v1/current.json";
+    public static final String KEY_API_WEATHER = "82d0e54117ef4fe6822213050261201";
     
-    // URLs base para las APIs de Open-Meteo
-    public static final String GEOCODING_BASE_URL = "https://geocoding-api.open-meteo.com/v1";
-    public static final String WEATHER_BASE_URL = "https://api.open-meteo.com/v1";
+    public static final int READ_TIMEOUT_SECONDS = 10;
+    public static final int CONNECTION_TIMEOUT_SECONDS = 5;
     
-    // Parámetros de configuración
-    public static final int CONNECTION_TIMEOUT_SECONDS = 10;
-    public static final int READ_TIMEOUT_SECONDS = 30;
-    public static final String DEFAULT_LANGUAGE = "en";
-    public static final int DEFAULT_SEARCH_COUNT = 1;
-    
-    /**
-     * Construye la URL completa para la API de geocodificación
-     * 
-     * @param cityName nombre de la ciudad a buscar
-     * @return URL completa para la consulta de geocodificación
-     */
-    public static String buildGeocodingUrl(String cityName) {
-        // Reemplaza espacios por '+' para la URL
-        String formattedCity = cityName.replaceAll(" ", "+");
-        
-        return String.format("%s/search?name=%s&count=%d&language=%s&format=json",
-                GEOCODING_BASE_URL, formattedCity, DEFAULT_SEARCH_COUNT, DEFAULT_LANGUAGE);
+    public static String buildWeatherUrl(double latitude, double longitude) {
+        return String.format(Locale.US, "%s?key=%s&q=%.6f,%.6f&aqi=yes",
+                WEATHER_BASE_URL, KEY_API_WEATHER, latitude, longitude);
     }
     
-    /**
-     * Construye la URL completa para la API meteorológica
-     * 
-     * @param latitude latitud de la ubicación
-     * @param longitude longitud de la ubicación
-     * @return URL completa para la consulta meteorológica
-     */
-    public static String buildWeatherUrl(double latitude, double longitude) {
-        return String.format("%s/forecast?latitude=%f&longitude=%f&current=temperature_2m,relative_humidity_2m,wind_speed_10m",
-                WEATHER_BASE_URL, latitude, longitude);
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder()
+                .clientConnector(new ReactorClientHttpConnector(
+                    HttpClient.create()
+                        .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, CONNECTION_TIMEOUT_SECONDS * 1000)
+                        .responseTimeout(Duration.ofSeconds(READ_TIMEOUT_SECONDS))
+                ))
+                .build();
     }
 }

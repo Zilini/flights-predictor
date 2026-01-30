@@ -52,4 +52,19 @@ public class AirportService {
                 });
     }
 
+    public Airport findAirportBySearchTerm(String searchTerm) {
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return null;
+        }
+
+        String term = searchTerm.trim();
+        
+        // Buscar por IATA (3 caracteres)
+        if (term.length() == 3) {
+            return repository.findByAirportIata(term.toUpperCase())
+                    .orElse(null);
+        }
+        return null;
+    }
+
 }
